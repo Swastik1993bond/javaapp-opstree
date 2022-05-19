@@ -1,0 +1,26 @@
+version: '3' 
+services: 
+  testjavaapp: 
+    image: ot-javaapp-img
+    ports: 
+      - 9090:8080 
+    depends_on: 
+      - mysql.okts-dev 
+    networks:
+     - Opstree-javaapp
+  mysql.okts-dev: 
+    image: mysql:5.7 
+    restart: always 
+    container_name: mysql.okts-dev 
+    environment: 
+      MYSQL_ROOT_PASSWORD: password 
+      MYSQL_DATABASE: employeedb 
+    volumes: 
+      - mysql_data:/var/lib/mysql 
+    ports: 
+      - 3306:3306 
+    networks:
+      - Opstree-javaapp
+volumes: 
+    mysql_data: 
+    driver: local
